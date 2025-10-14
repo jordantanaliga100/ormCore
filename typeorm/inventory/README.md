@@ -51,6 +51,14 @@ erDiagram
         date updatedAt
     }
 
+     PROFILE {
+        int id
+        string firstName
+        string lastName
+        string email
+        int userId
+    }
+
     SUPPLIER {
         int id
         string name
@@ -103,6 +111,11 @@ erDiagram
         string description
     }
 
+    TAG {
+        int id
+        string name
+    }
+
 ```
 
 | #   | Milestone                       | Status      | Notes                                             |
@@ -112,7 +125,7 @@ erDiagram
 | ✅  | **Environment Variables Setup** | Done        | `.env` + `dotenv` working                         |
 | ✅  | **TypeORM Configuration**       | Done        | Connected to PostgreSQL via `AppDataSource`       |
 | ✅  | **User Entity Created**         | Done        | Auto-generated DB table using `synchronize: true` |
-| ⏳  | **Add More Entities**           | In Progress | Next: `Supplier`, `Product`, etc.                 |
+| ✅  | **Add More Entities**           | In Progress | Next: `Supplier`, `Product`, etc.                 |
 | ⏳  | **Repository + Routes (User)**  | Planned     | Build CRUD endpoints for `User`                   |
 | ⏳  | **Migrations Setup**            | Planned     | Switch from `synchronize: true` to migrations     |
 | ⏳  | **Seeding + Data Fixtures**     | Planned     | Insert initial sample data                        |
