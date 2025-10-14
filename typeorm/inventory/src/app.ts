@@ -12,7 +12,7 @@ console.log("... on " + nodeEnv + " environment 🚀");
 const app: Express = express();
 
 // TOP MIDDLEWARES
-
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
@@ -20,14 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
   // throw new Error("Testing gin index");
-  res.send("Node_Express Server Alive 🛩️");
-});
 
-app.use("/api/v1/auth", () => {});
-app.use("/api/v1/products", () => {});
-app.use("/api/v1/services", () => {});
-app.use("/api/v1/contact", () => {});
-app.use("/api/v1/users", () => {});
+  res.send("Node_Express Server Alive 🛩️, THIS IS A TEST 🔥");
+});
 
 // BOTTOM MIDDLEWARES
 export default app;

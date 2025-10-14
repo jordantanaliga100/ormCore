@@ -1,11 +1,5 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { Base } from "./base.entity";
 import { UserProfile } from "./profile.entity";
 import { Sale } from "./sale.entity";
 
@@ -16,11 +10,11 @@ export enum UserRole {
 }
 
 @Entity("users")
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+export class User extends Base {
+  @Column({
+    type: "varchar",
+    length: 50,
+  })
   username: string;
 
   @Column({
@@ -28,7 +22,7 @@ export class User {
   })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Column({
@@ -38,15 +32,11 @@ export class User {
   })
   role: UserRole;
 
-  @CreateDateColumn()
-  created_at: Date;
-
-  @CreateDateColumn()
-  updated_at: Date;
-
   @OneToMany(() => Sale, (sale) => sale.user)
   sales: Sale[];
 
-  @OneToOne(() => UserProfile, (profile) => profile.user)
+  @OneToOne(() => UserProfile, (profile) => profile.user, {
+    eager: true,
+  })
   profile: UserProfile;
 }

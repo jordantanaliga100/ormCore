@@ -1,19 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Base } from "./base.entity";
 import { User } from "./user.entity";
 
 @Entity("user_profiles")
-export class UserProfile {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class UserProfile extends Base {
   @Column()
   firstName: string;
 
@@ -26,14 +16,14 @@ export class UserProfile {
   @Column({ nullable: true })
   address: string;
 
+  @Column({ nullable: true })
+  avatarUrl: string;
+
   // 🔹 One-to-One relation with User
-  @OneToOne(() => User, (user) => user.profile, { onDelete: "CASCADE" })
-  @JoinColumn() // marks owning side
+  @OneToOne(() => User, (user) => user.profile, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn({ name: "userId" }) // marks owning side
   user: User;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

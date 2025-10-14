@@ -1,14 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
+import { Base } from "./base.entity";
 import { Category } from "./category.entity";
 import { SaleItem } from "./sale-item.entity";
 import { StockHistory } from "./stock-history.entity";
@@ -16,10 +15,7 @@ import { Supplier } from "./supplier.entity";
 import { Tag } from "./tag.entity";
 
 @Entity("products")
-export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Product extends Base {
   @Column()
   name: string;
 
@@ -35,19 +31,17 @@ export class Product {
   @Column({ default: 5 })
   reorderLevel: number;
 
-  supplier: Supplier;
-  category: Category;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
   // 🧩 Relation: many products belong to one supplier
   @ManyToOne(() => Supplier, (supplier) => supplier.products, {
     onDelete: "SET NULL",
   })
+  @JoinColumn({ name: "supplierId" })
+  supplier: Supplier;
+
+  @ManyToOne(() => Category, (category) => category.products)
+  @JoinColumn({ name: "categoryId" })
+  category: Category;
+
   @OneToMany(() => StockHistory, (stockHistory) => stockHistory.product)
   stockHistories: StockHistory[];
 
@@ -55,6 +49,10 @@ export class Product {
   saleItems: SaleItem[];
 
   @ManyToMany(() => Tag, (tag) => tag.products)
-  @JoinTable()
+  @JoinTable({
+    name: "product_tags",
+    joinColumn: { name: "productId" },
+    inverseJoinColumn: { name: "tagId" },
+  })
   tags: Tag[];
 }
