@@ -2,8 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { UserProfile } from "./profile.entity";
+import { Sale } from "./sale.entity";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -39,4 +43,10 @@ export class User {
 
   @CreateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Sale, (sale) => sale.user)
+  sales: Sale[];
+
+  @OneToOne(() => UserProfile, (profile) => profile.user)
+  profile: UserProfile;
 }
