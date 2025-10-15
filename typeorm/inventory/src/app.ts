@@ -1,6 +1,7 @@
 // IMPORTS
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
+import morgan from "morgan";
 
 // ENV CONFIG
 const nodeEnv = process.env.NODE_ENV || "development";
@@ -12,6 +13,7 @@ console.log("... on " + nodeEnv + " environment 🚀");
 const app: Express = express();
 
 // TOP MIDDLEWARES
+app.use(morgan("dev"));
 app.set("trust proxy", 1);
 app.use(express.json());
 app.use(express.static("./public"));
