@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.get("/api/v1/docs", (req: Request, res: Response) => {
   res.send(`
-    <h1> 
+    <h3> 
     API Dcoumentation
-    </h1>
+    </h3>
     <pre> This route is for the API Documentation...</pre>
     <small>working on it</small>
       <br/>
@@ -35,9 +35,12 @@ app.get("/api/v1/docs", (req: Request, res: Response) => {
 app.get("/api/v1", (req: Request, res: Response) => {
   res.send(`
     <h3>
-    Node_Express Server Alive 🛩️, THIS IS FROM INVENTORY 🔥
+    Node_Express Server Alive 🛩️
     
     </h3>
+    <h6>
+    THIS IS FROM INVENTORY 🔥
+    </h6>
     <a href="/api/v1/docs">Go to Documentation</a>
     `);
 });
