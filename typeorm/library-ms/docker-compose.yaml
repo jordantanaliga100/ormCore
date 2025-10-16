@@ -1,0 +1,49 @@
+services:
+  nginx:
+    container_name: library-nginx
+    image: nginx:latest
+    ports:
+      - "2222:80"
+  app:
+    container_name: library-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    ports:
+      - "5001:5001"
+    command: pnpm run dev
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      # - mysql
+
+  postgres:
+    container_name: library-postgres
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  # mysql:
+  #   container_name: library-mysql
+  #   image: mysql:8
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DB}
+  #   ports:
+  #     - "${MYSQL_PORT}:${MYSQL_PORT}"
+  #   volumes:
+  #     - mysqldata:/var/lib/mysql
+
+volumes:
+  pgdata:
+  # mysqldata:
