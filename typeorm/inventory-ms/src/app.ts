@@ -25,8 +25,8 @@ app.get("/api/v1/docs", (req: Request, res: Response) => {
     <h3> 
     API Dcoumentation
     </h3>
-    <pre> This route is for the API Documentation...</pre>
-    <small>working on it</small>
+    <p> This route is for the API Documentation...</p>
+    <small>working on it...</small>
       <br/>
       <br/>
     <a href="/api/v1">Go to Index</a>
