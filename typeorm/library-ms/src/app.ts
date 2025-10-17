@@ -26,9 +26,29 @@ app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
-app.get("/", (req: Request, res: Response) => {
-  // throw new Error("Testing gin index");
-  res.send("Node_Express Server Alive 🛩️, THIS IS FROM LIBRARY 🔥");
+app.get("/api/v1/docs", (req: Request, res: Response) => {
+  res.send(`
+    <h3> 
+    API Dcoumentation
+    </h3>
+    <p> This route is for the API Documentation...</p>
+    <small>working on it...</small>
+      <br/>
+      <br/>
+    <a href="/api/v1">Go to Index</a>
+    `);
+});
+app.get("/api/v1", (req: Request, res: Response) => {
+  res.send(`
+    <h3>
+    Node_Express Server Alive 🛩️
+    
+    </h3>
+    <h6>
+    THIS IS FROM LIBRARY 🔥
+    </h6>
+    <a href="/api/v1/docs">Go to Documentation</a>
+    `);
 });
 
 export default app;
