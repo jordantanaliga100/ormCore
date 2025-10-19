@@ -1,8 +1,13 @@
 // IMPORTS
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import swaggerUi from "swagger-ui-express";
+
 import express, { Express, Request, Response } from "express";
-import morgan from "morgan";
+import fs from "fs";
+// import morgan from "morgan";
+import UserRoutes from "./app/users/user.route";
 
 // ENV CONFIG
 const nodeEnv = process.env.NODE_ENV || "development";
@@ -25,18 +30,20 @@ app.use(
 app.use(express.json());
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
   // throw new Error("Testing gin index");
   res.send("Node_Express Server Alive 🛩️");
 });
+app.use("/api/v1/users", UserRoutes);
+
+// ✅ SWAGGER DOCS
+const swaggerPath = path.resolve(__dirname, "../swagger.json");
+
+const swaggerDocument = JSON.parse(fs.readFileSync(swaggerPath, "utf8"));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 export default app;
-
-// app.use("/api/v1/auth", () => {});
-// app.use("/api/v1/products", () => {});
-// app.use("/api/v1/services", () => {});
-// app.use("/api/v1/contact", () => {});
-// app.use("/api/v1/users", () => {});

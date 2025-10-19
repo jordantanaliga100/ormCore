@@ -13,4 +13,3 @@ const start = async () => {
   }
 };
 start();
-console.log("... on " + process.env.NODE_ENV + " environment 🚀");
