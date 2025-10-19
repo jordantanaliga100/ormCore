@@ -33,10 +33,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Node_Express Server Alive 🛩️");
 });
 
-app.use("/api/v1/auth", () => {});
-app.use("/api/v1/products", () => {});
-app.use("/api/v1/services", () => {});
-app.use("/api/v1/contact", () => {});
-app.use("/api/v1/users", () => {});
-
 export default app;
+
+// app.use("/api/v1/auth", () => {});
+// app.use("/api/v1/products", () => {});
+// app.use("/api/v1/services", () => {});
+// app.use("/api/v1/contact", () => {});
+// app.use("/api/v1/users", () => {});
