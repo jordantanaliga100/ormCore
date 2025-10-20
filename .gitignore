@@ -1,0 +1,41 @@
+# Ignore all node_modules folders recursively
+/**/node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# OS / Editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Docker
+**/docker-compose.override.yml
+**/tmp/
+**/.docker/
+
+# Prisma generated files
+**/prisma/generated/
+**/prisma/migrations/
+
+# Swagger build artifacts
+**/swagger.json
+
+# Ignore cache
+.cache/
+
