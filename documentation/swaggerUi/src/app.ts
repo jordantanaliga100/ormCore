@@ -32,13 +32,25 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
   // throw new Error("Testing gin index");
-  res.send("Node_Express Server Alive 🛩️");
+  res.send(`
+    <pre>
+    <h3>
+    Node_Express Server Alive 🛩️
+    </h3>
+    <a href="/api-docs">API </a>
+    </pre>
+    `);
 });
-app.use("/api/v1/users", UserRoutes);
-
 // ✅ SWAGGER DOCS
 app.get("/api-docs", (req: Request, res: Response) => {
-  res.send("API Docs here...");
+  res.send(`
+    <a href="/"> Go back</a>
+    <pre>
+    API Docs here...
+    </pre>
+    `);
 });
+
+app.use("/api/v1/users", UserRoutes);
 
 export default app;
