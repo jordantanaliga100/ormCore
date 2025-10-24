@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node src/app.js",
-    "dev": "nodemon --watch  --exec ts-node ./src/app.ts",
-    "start:dev": "tsnd --clear --respawn src/app.ts  "
+    "dev": "ts-node-dev --clear --respawn src/index.ts",
+    "start:dev": "tsnd --clear --respawn src/index.ts  "
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,11 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/client": "6.17.1"
+    "-": "^0.0.1",
+    "@prisma/client": "6.17.1",
+    "@types/express": "^5.0.4",
+    "D": "^1.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
   }
 }

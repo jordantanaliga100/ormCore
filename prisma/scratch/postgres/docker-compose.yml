@@ -1,27 +1,62 @@
 services:
+  nginx:
+    container_name: prisma-nginx
+    image: nginx:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    depends_on:
+      - app
+    networks:
+      - prisma_net
+
   app:
     container_name: prisma-app
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     env_file:
       - .env
+
     ports:
-      - "5000:5000"
+      - "5000:5000" # buypass nginx
     volumes:
       - .:/app
-    command: pnpm run dev
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - prisma_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
-    container_name: prisma-db
+    container_name: prisma-postgres
     image: postgres:15
     restart: always
     env_file:
       - .env
-
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - prisma_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
 volumes:
   pgdata:
+
+networks:
+  prisma_net:
+    driver: bridge
